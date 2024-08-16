@@ -17,17 +17,17 @@ SELECT Total FROM Inoice
 ORDER BY Total DESC
 LIMIT 3;
 
-/* Q4 : Which city has the best customers? We would like to throw a promotional Music Festival in the city 
-		we made the most money. Write a query that returns one city that has the highest sum of invoice totals.
-		Return both the city name & sum of all invoice totals. */
+/* Q4 : Which city has the best customers? We would like to throw a promotional Music Festival in the city we made the most money. 
+	Write a query that returns one city that has the highest sum of invoice totals. Return both the city name & sum of all invoice 
+	totals. */
 
 SELECT Billing_City, SUM(Total) AS Invoice_Total 
 FROM Inoice
 GROUP BY Billing_City 
 ORDER BY Invoice_Total DESC;
 
-/* Q5 : Who is the best customer? The customer who has spent the most money will be declared the best customer. 
-		Write a query that returns the person who has spent the most money. */
+/* Q5 : Who is the best customer? The customer who has spent the most money will be declared the best customer. Write a query that 
+	returns the person who has spent the most money. */
 
 SELECT Customer.Customer_ID, Customer.First_Name, Customer.Last_Name, SUM(Invoice.Total) AS Total 
 FROM Customer
@@ -36,8 +36,8 @@ GROUP BY Customer.Customer_ID
 ORDER BY Total DESC 
 LIMIT 1;
 
-/* Q6 : Write query to return the email, first name, last name, & Genre of all Rock Music listeners. 
-		Return your list ordered alphabetically by email starting with A. */
+/* Q6 : Write query to return the email, first name, last name, & Genre of all Rock Music listeners. Return your list ordered 
+	alphabetically by email starting with A. */
 
 SELECT DISTINCT Email, First_Name, Last_Name
 FROM Customer
@@ -50,8 +50,8 @@ WHERE Track_ID IN(
 )
 ORDER BY Email;
 
-/* Q7 : Let's invite the artists who have written the most rock music in our dataset. 
-		Write a query that returns the Artist name and total track count of the top 10 rock bands. */
+/* Q7 : Let's invite the artists who have written the most rock music in our dataset. Write a query that returns the Artist name and 
+	total track count of the top 10 rock bands. */
 
 SELECT Artist.Artist_ID, Artist.Name, COUNT(Artist.Artist_ID) AS Number_of_Song
 FROM Track 
@@ -63,8 +63,8 @@ GROUP BY Artist.Artist_ID
 ORDER BY Number_of_Song DESC
 LIMIT 10 ;
 
-/* Q8 : Return all the track names that have a song length longer than the average song length. Return the Name 
-		and Milliseconds for each track. Order by the song length with the longest songs listed first. */
+/* Q8 : Return all the track names that have a song length longer than the average song length. Return the Name and Milliseconds for
+	each track. Order by the song length with the longest songs listed first. */
 
 SELECT Name, Milliseconds
 FROM Track 
@@ -73,8 +73,7 @@ WHERE Milliseconds > (
 	FROM Track )
 ORDER BY Milliseconds DESC ;
 
-/* Q9 : Find how much amount spent by each customer on artists? Write a query to return customer name, 
-		artist name and total spent. */
+/* Q9 : Find how much amount spent by each customer on artists? Write a query to return customer name, artist name and total spent. */
 
 WITH Best_Selling_Artist AS (
 	SELECT Artist.Artist_ID AS Artist_ID, Artist.Name AS Artist_Name, 
@@ -98,9 +97,9 @@ JOIN Best_Selling_Artist BSA ON BSA.Artist_ID = ALB.Artist_ID
 GROUP BY 1,2,3,4
 ORDER BY 5 DESC;
 
-/* Q10 : We want to find out the most popular music Genre for each country. We determine the most popular genre
-		 as the genre with the highest amount of purchases. Write a query that returns each country along with
-		 the top Genre. For countries where the maximum number of purchases is shared return all Genres. */
+/* Q10 : We want to find out the most popular music Genre for each country. We determine the most popular genre as the genre with the 
+	 highest amount of purchases. Write a query that returns each country along withthe top Genre. For countries where the maximum 
+	 number of purchases is shared return all Genres. */
 
 WITH RECURSIVE
 	Sales_Per_Country AS(
